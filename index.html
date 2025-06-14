@@ -41,67 +41,133 @@
         box-sizing: border-box;
       }
     </style>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawCharts);
-    
-      function drawCharts() {
-        // Gráfico de líneas: evolución pobreza total (millones)
-        const data1 = google.visualization.arrayToDataTable([
-          ['Año', 'Personas en pobreza (millones)'],
-          ['2008', 49.5],
-          ['2010', 52.8],
-          ['2012', 53.3],
-          ['2014', 55.3],
-          ['2016', 53.4],
-          ['2018', 52.4]
-        ]);
-    
-        const options1 = {
-          title: 'Evolución de la pobreza en México (2008–2018)',
-          hAxis: { title: 'Año' },
-          vAxis: { title: 'Millones de personas' },
-          curveType: 'function',
-          legend: { position: 'none' }
-        };
-    
-        const chart1 = new google.visualization.LineChart(document.getElementById('chart1'));
-        chart1.draw(data1, options1);
-    
-        // Gráfico de pastel: Carencias sociales 2018
-        const data2 = google.visualization.arrayToDataTable([
-          ['Carencia', '% de población'],
-          ['Rezago educativo', 16.9],
-          ['Acceso a salud', 20.2],
-          ['Seguridad social', 57.3]
-        ]);
-    
-        const options2 = {
-          title: 'Carencias sociales en México (2018)'
-        };
-    
-        const chart2 = new google.visualization.PieChart(document.getElementById('chart2'));
-        chart2.draw(data2, options2);
-    
-        // Gráfico de columnas: Pobreza urbana vs rural (2018)
-        const data3 = google.visualization.arrayToDataTable([
-          ['Zona', '% en pobreza'],
-          ['Urbana', 37.6],
-          ['Rural', 55.3]
-        ]);
-    
-        const options3 = {
-          title: 'Pobreza urbana vs rural (2018)',
-          hAxis: { title: 'Zona' },
-          vAxis: { title: '% de población en pobreza' },
-          legend: 'none',
-          colors: ['#4285F4']
-        };
-    
-        const chart3 = new google.visualization.ColumnChart(document.getElementById('chart3'));
-        chart3.draw(data3, options3);
-      }
-    </script>
+<script type="text/javascript">
+    // Carga la librería de Google Charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawCharts);
+
+    function drawCharts() {
+      // Tabla 1: Evolución de personas en situación de pobreza (millones)
+      var data1 = google.visualization.arrayToDataTable([
+        ['Año', 'Personas en pobreza (millones)', '% de la población'],
+        ['2008', 49.5, 44.4],
+        ['2010', 52.8, 46.1],
+        ['2012', 53.3, 45.5],
+        ['2014', 55.3, 46.2],
+        ['2016', 53.4, 43.6],
+        ['2018', 52.4, 41.9]
+      ]);
+      var options1 = {
+        title: 'Evolución de personas en situación de pobreza',
+        vAxes: {
+          0: {title: 'Millones'},
+          1: {title: '% de la población'}
+        },
+        hAxis: {title: 'Año'},
+        seriesType: 'bars',
+        series: {
+          1: {type: 'line', targetAxisIndex: 1}
+        },
+        legend: { position: 'bottom' },
+        height: 350
+      };
+      
+      var chart1 = new google.visualization.ComboChart(document.getElementById('chart1'));
+      chart1.draw(data1, options1);
+
+      // Tabla 2: Carencias sociales en 2008 y 2018 (gráfico de columnas)
+      var data2 = google.visualization.arrayToDataTable([
+        ['Carencia', '2008 (%)', '2018 (%)'],
+        ['Servicios básicos vivienda', 22.9, 19.8],
+        ['Alimentación', 21.7, 20.4],
+        ['Rezago educativo', 21.9, 16.9],
+        ['Servicios de salud', 38.4, 16.2],
+        ['Seguridad social', 65.0, 57.3],
+        ['Calidad y espacios vivienda', 17.7, 11.1]
+      ]);
+      var options2 = {
+        title: 'Carencias sociales en 2008 y 2018',
+        chartArea: {width: '60%'},
+        hAxis: {
+          title: 'Porcentaje (%)',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Tipo de carencia'
+        },
+        bars: 'horizontal',
+        height: 350,
+        colors: ['#1b9e77', '#d95f02']
+      };
+
+      var chart2 = new google.visualization.BarChart(document.getElementById('chart2'));
+      chart2.draw(data2, options2);
+
+      // Tabla 3: Pobreza urbana vs rural (2018) - gráfico circular
+      var data3 = google.visualization.arrayToDataTable([
+        ['Zona', '% en pobreza'],
+        ['Urbana', 37.6],
+        ['Rural', 55.3]
+      ]);
+      var options3 = {
+        title: 'Pobreza urbana vs rural (2018)',
+        pieHole: 0.4,
+        height: 350,
+        colors: ['#4caf50', '#f44336']
+      };
+
+      var chart3 = new google.visualization.PieChart(document.getElementById('chart3'));
+      chart3.draw(data3, options3);
+
+      // Tabla 4: Pobreza por género (2008 y 2018) - gráfico de columnas
+      var data4 = google.visualization.arrayToDataTable([
+        ['Sexo', '2008 (%)', '2018 (%)'],
+        ['Mujeres', 44.6, 42.4],
+        ['Hombres', 44.0, 41.4]
+      ]);
+      var options4 = {
+        title: 'Pobreza por género (2008 y 2018)',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Porcentaje (%)',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Sexo'
+        },
+        bars: 'horizontal',
+        height: 300,
+        colors: ['#e91e63', '#2196f3']
+      };
+
+      var chart4 = new google.visualization.BarChart(document.getElementById('chart4'));
+      chart4.draw(data4, options4);
+
+      // Tabla 5: Pobreza por lengua indígena (2008 y 2018) - gráfico de columnas
+      var data5 = google.visualization.arrayToDataTable([
+        ['Población', '2008 (%)', '2018 (%)'],
+        ['Hablante lengua indígena', 76.0, 74.9],
+        ['No hablante lengua indígena', 41.4, 39.4]
+      ]);
+      var options5 = {
+        title: 'Pobreza por lengua indígena (2008 y 2018)',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Porcentaje (%)',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Población'
+        },
+        bars: 'horizontal',
+        height: 300,
+        colors: ['#ff9800', '#9c27b0']
+      };
+      var chart5 = new google.visualization.BarChart(document.getElementById('chart5'));
+      chart5.draw(data5, options5);
+    }
+  </script>
+
   </head>
   <body>
     <h2>Panel de Visualización de Datos</h2>
@@ -109,6 +175,8 @@
       <div class="chart" id="chart1" style="width: 100%; height: 400px;"></div>
       <div class="chart" id="chart2" style="width: 100%; height: 400px;"></div>
       <div class="chart" id="chart3" style="width: 100%; height: 400px;"></div>
+      <div class="chart" id="chart4" style="width: 100%; height: 400px;"></div>
+      <div class="chart" id="chart5" style="width: 100%; height: 400px;"></div>
     </div>
   </body>
 </html>
