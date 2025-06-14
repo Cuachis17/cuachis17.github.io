@@ -44,59 +44,61 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawCharts);
-
+    
       function drawCharts() {
-        // Gráfico de columnas
+        // Gráfico de líneas: evolución pobreza total (millones)
         const data1 = google.visualization.arrayToDataTable([
-          ['Mes', 'Ventas'],
-          ['Enero', 1000],
-          ['Febrero', 1170],
-          ['Marzo', 660],
-          ['Abril', 1030]
+          ['Año', 'Personas en pobreza (millones)'],
+          ['2008', 49.5],
+          ['2010', 52.8],
+          ['2012', 53.3],
+          ['2014', 55.3],
+          ['2016', 53.4],
+          ['2018', 52.4]
         ]);
-
+    
         const options1 = {
-          title: 'Ventas Mensuales',
-          hAxis: {title: 'Mes'},
-          vAxis: {title: 'Ventas'},
-          legend: 'none'
+          title: 'Evolución de la pobreza en México (2008–2018)',
+          hAxis: { title: 'Año' },
+          vAxis: { title: 'Millones de personas' },
+          curveType: 'function',
+          legend: { position: 'none' }
         };
-
-        const chart1 = new google.visualization.ColumnChart(document.getElementById('chart1'));
+    
+        const chart1 = new google.visualization.LineChart(document.getElementById('chart1'));
         chart1.draw(data1, options1);
-
-        // Gráfico de pastel
+    
+        // Gráfico de pastel: Carencias sociales 2018
         const data2 = google.visualization.arrayToDataTable([
-          ['Producto', 'Porcentaje'],
-          ['Zapatos', 45],
-          ['Ropa', 25],
-          ['Accesorios', 30]
+          ['Carencia', '% de población'],
+          ['Rezago educativo', 16.9],
+          ['Acceso a salud', 20.2],
+          ['Seguridad social', 57.3]
         ]);
-
+    
         const options2 = {
-          title: 'Distribución de Productos Vendidos'
+          title: 'Carencias sociales en México (2018)'
         };
-
+    
         const chart2 = new google.visualization.PieChart(document.getElementById('chart2'));
         chart2.draw(data2, options2);
-
-        // Gráfico de líneas
+    
+        // Gráfico de columnas: Pobreza urbana vs rural (2018)
         const data3 = google.visualization.arrayToDataTable([
-          ['Día', 'Usuarios'],
-          ['Lunes', 200],
-          ['Martes', 400],
-          ['Miércoles', 460],
-          ['Jueves', 1120],
-          ['Viernes', 540]
+          ['Zona', '% en pobreza'],
+          ['Urbana', 37.6],
+          ['Rural', 55.3]
         ]);
-
+    
         const options3 = {
-          title: 'Usuarios activos por día',
-          curveType: 'function',
-          legend: { position: 'bottom' }
+          title: 'Pobreza urbana vs rural (2018)',
+          hAxis: { title: 'Zona' },
+          vAxis: { title: '% de población en pobreza' },
+          legend: 'none',
+          colors: ['#4285F4']
         };
-
-        const chart3 = new google.visualization.LineChart(document.getElementById('chart3'));
+    
+        const chart3 = new google.visualization.ColumnChart(document.getElementById('chart3'));
         chart3.draw(data3, options3);
       }
     </script>
